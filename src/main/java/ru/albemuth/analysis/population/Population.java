@@ -53,14 +53,6 @@ public class Population {
         }
     }
 
-    private double calculateInitFirstLaborDeathP() {
-        return 0.5 * Math.random();//исходная вероятность смерти первыми родами равномерно распределена на интервале 0 - 0.5
-    }
-
-    private int calculateInitAge() {
-        return (int)(70 * Math.random());//возраста в исходной популяции равномерно распределены на интервале 0(новорожденные) - 69(старики, по достижении 70 лет умирают)
-    }
-
     public void processNextYear() {
         year++;
         processAges(year, mankind, womankind);
@@ -72,6 +64,10 @@ public class Population {
         int mankindDeathsCounter = processAges(mankind);
         int womankindDeathsCounter = processAges(womankind);
         if (year % debugFactor == 0) {LOGGER.debug("Year: " + year + ", age deaths: " + (mankindDeathsCounter + womankindDeathsCounter) + "(" + mankindDeathsCounter + "/" + womankindDeathsCounter + ")");}
+    }
+
+    private int calculateInitAge() {
+        return (int)(70 * Math.random());//возраста в исходной популяции равномерно распределены на интервале 0(новорожденные) - 69(старики, по достижении 70 лет умирают)
     }
 
     private int processAges(List<? extends Human> humans) {
@@ -144,11 +140,17 @@ public class Population {
         return child;
     }
 
+    private double calculateInitFirstLaborDeathP() {
+        //return 0.5 * Math.random();//исходная вероятность смерти первыми родами равномерно распределена на интервале 0 - 0.5
+        return 0.25;
+    }
+
     private double calculateChildFirstLaborDeathP(Man father, Woman mother) {
         //вероятность смерти первыми родами передается от одного из родителей (50/50) с изменением +/- 1% на мутации
-        double childFirstLaborDeathP = (Math.random() < 0.5 ? mother.getFirstLaborDeathP() : father.getFirstLaborDeathP()) * (Math.random() < 0.5 ? 1.01 : 0.99);
+        /*double childFirstLaborDeathP = (Math.random() < 0.5 ? mother.getFirstLaborDeathP() : father.getFirstLaborDeathP()) * (Math.random() < 0.5 ? 1.01 : 0.99);
         if (childFirstLaborDeathP > 1) {childFirstLaborDeathP = 1;}//вероятность больше 1 быть не может (меньше 0 тоже, но при данном способе ее генерации это невозможно)
-        return childFirstLaborDeathP;
+        return childFirstLaborDeathP;*/
+        return 0.25;
     }
 
     private Human.Sex calculateChildSex() {
