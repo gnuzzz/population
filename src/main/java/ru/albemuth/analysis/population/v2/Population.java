@@ -1,4 +1,4 @@
-package ru.albemuth.analysis.population;
+package ru.albemuth.analysis.population.v2;
 
 import org.apache.log4j.Logger;
 
@@ -8,7 +8,8 @@ import java.util.LinkedList;
 import java.util.List;
 
 /**
- * @author VKornyshev
+ * @author vovan
+ * Класс, моделирующий человеческую популяцию
  */
 public class Population {
 
@@ -41,7 +42,7 @@ public class Population {
         this.mankind = new LinkedList<Man>();//мужчины - половина исходной популяции. Т.к. из этого списка будет много удалений, лучше использовать LinkedList
         for (int i = 0; i < initPopulationSize / 2; i++) {
             Man man = new Man(ageLimit, calculateInitFirstLaborDeathP());
-            man.setAge((int)(70 * Math.random()));
+            man.setAge(calculateInitAge());
             this.mankind.add(man);
         }
 
@@ -141,16 +142,14 @@ public class Population {
     }
 
     private double calculateInitFirstLaborDeathP() {
-        //return 0.5 * Math.random();//исходная вероятность смерти первыми родами равномерно распределена на интервале 0 - 0.5
-        return 0.25;
+        return 0.5 * Math.random();//исходная вероятность смерти первыми родами равномерно распределена на интервале 0 - 0.5
     }
 
     private double calculateChildFirstLaborDeathP(Man father, Woman mother) {
         //вероятность смерти первыми родами передается от одного из родителей (50/50) с изменением +/- 1% на мутации
-        /*double childFirstLaborDeathP = (Math.random() < 0.5 ? mother.getFirstLaborDeathP() : father.getFirstLaborDeathP()) * (Math.random() < 0.5 ? 1.01 : 0.99);
+        double childFirstLaborDeathP = (Math.random() < 0.5 ? mother.getFirstLaborDeathP() : father.getFirstLaborDeathP()) * (Math.random() < 0.5 ? 1.01 : 0.99);
         if (childFirstLaborDeathP > 1) {childFirstLaborDeathP = 1;}//вероятность больше 1 быть не может (меньше 0 тоже, но при данном способе ее генерации это невозможно)
-        return childFirstLaborDeathP;*/
-        return 0.25;
+        return childFirstLaborDeathP;
     }
 
     private Human.Sex calculateChildSex() {
@@ -182,10 +181,6 @@ public class Population {
                 number--;
             }
         }
-        /*for (int i = 0; i < number; i++) {
-            int deletedIndex = (int)(humans.size() * Math.random());
-            humans.remove(deletedIndex);
-        }*/
     }
 
 }

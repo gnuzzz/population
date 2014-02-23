@@ -1,7 +1,7 @@
-package ru.albemuth.analysis.population;
+package ru.albemuth.analysis.population.v1;
 
 /**
- * @author VKornyshev
+ * @author vovan
  * Класс, моделирующий человека
  */
 public abstract class Human {

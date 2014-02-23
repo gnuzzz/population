@@ -1,4 +1,4 @@
-package ru.albemuth.analysis.population;
+package ru.albemuth.analysis.population.v2;
 
 import org.apache.log4j.Logger;
 import org.junit.Test;
