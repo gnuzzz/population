@@ -12,8 +12,10 @@ class TestPopulation extends FunSuite {
     private val LOGGER = Logger.getLogger(getClass)
 
     /*
+
     test("test") {
     }
+
     */
 
     test("Population") {
