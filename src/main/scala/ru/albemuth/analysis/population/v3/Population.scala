@@ -26,6 +26,8 @@ object Population {
     }
 
     def p(p: Double) = { if (p < 0) 0.0 else if (p > 1) 1.0 else p }
+
+    def mutationsFactor = /*0.01*/0.25
 }
 
 class Population(val initPopulationSize: Int, val ageLimit: Int, val debugFactor: Int) {
@@ -136,7 +138,7 @@ class Population(val initPopulationSize: Int, val ageLimit: Int, val debugFactor
 
     private def calculateChildCranialDiameter(father: Man, mother: Woman): Double = {
         //диаметр черепа передается от одного из родителей (50/50) с изменением +/- 1% на мутации
-        var diameter = (if (Math.random < 0.5) mother.cranialDiameter else father.cranialDiameter) * (if (Math.random < 0.5) 1.01 else 0.99)
+        var diameter = (if (Math.random < 0.5) mother.cranialDiameter else father.cranialDiameter) * (if (Math.random < 0.5) (1 + mutationsFactor) else (1 - mutationsFactor))
         if (diameter < 0) {diameter = 0}
         diameter
     }
